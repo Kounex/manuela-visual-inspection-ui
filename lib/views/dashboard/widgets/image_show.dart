@@ -38,7 +38,6 @@ class _ImageShowState extends ConsumerState<ImageShow>
           ),
           child: DecoratedYOLOImage(
             image: image,
-            height: _link.leaderSize!.height * 2 / 3,
           )
               .animate(
                 onComplete: (controller) {

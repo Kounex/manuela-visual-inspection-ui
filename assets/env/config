@@ -1,2 +1,2 @@
 API_URL=
-MOCK_MODE=
+MOCK_MODE=true

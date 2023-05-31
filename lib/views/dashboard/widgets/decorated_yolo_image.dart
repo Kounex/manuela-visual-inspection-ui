@@ -53,7 +53,7 @@ class DecoratedYOLOImage extends StatelessWidget {
           gaplessPlayback: true,
           height: height,
           width: width,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );
