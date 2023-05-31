@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,50 +24,44 @@ class _ImageShowState extends ConsumerState<ImageShow>
   bool get wantKeepAlive => true;
 
   void _addImageOverlay(YOLOImage image) {
-    SchedulerBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        ref.read(yOLOImagesProvider.notifier).addImage(image);
+    double imageHeight = _link.leaderSize!.height * 2 / 3;
 
-        double imageHeight = _link.leaderSize!.height * 2 / 3;
-
-        late OverlayEntry entry;
-        entry = OverlayEntry(
-          builder: (context) => Positioned(
-            height: imageHeight,
-            child: CompositedTransformFollower(
-              link: _link,
-              offset: Offset(
-                0,
-                (_link.leaderSize!.height - imageHeight) / 2,
-              ),
-              child: DecoratedYOLOImage(
-                image: image,
-                height: _link.leaderSize!.height * 2 / 3,
-              )
-                  .animate(
-                    onComplete: (controller) {
-                      entry.remove();
-                      _currentEntries.remove(entry);
-                    },
-                  )
-                  .fadeIn(
-                    duration: const Duration(milliseconds: 1000),
-                  )
-                  .moveX(
-                    duration: const Duration(milliseconds: 10000),
-                    end: _link.leaderSize!.width - 500,
-                  )
-                  .fadeOut(
-                    delay: const Duration(milliseconds: 9000),
-                    duration: const Duration(milliseconds: 1000),
-                  ),
-            ),
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (context) => Positioned(
+        height: imageHeight,
+        child: CompositedTransformFollower(
+          link: _link,
+          offset: Offset(
+            0,
+            (_link.leaderSize!.height - imageHeight) / 2,
           ),
-        );
-        Overlay.of(context).insert(entry);
-        _currentEntries.add(entry);
-      },
+          child: DecoratedYOLOImage(
+            image: image,
+            height: _link.leaderSize!.height * 2 / 3,
+          )
+              .animate(
+                onComplete: (controller) {
+                  entry.remove();
+                  _currentEntries.remove(entry);
+                },
+              )
+              .fadeIn(
+                duration: const Duration(milliseconds: 1000),
+              )
+              .moveX(
+                duration: const Duration(milliseconds: 10000),
+                end: _link.leaderSize!.width - 500,
+              )
+              .fadeOut(
+                delay: const Duration(milliseconds: 9000),
+                duration: const Duration(milliseconds: 1000),
+              ),
+        ),
+      ),
     );
+    Overlay.of(context).insert(entry);
+    _currentEntries.add(entry);
   }
 
   @override
@@ -85,8 +78,12 @@ class _ImageShowState extends ConsumerState<ImageShow>
     super.build(context);
     final yoloImage = ref.watch(yOLOImagesStreamProvider(mockMode: true));
 
-    ref.listen(yOLOImagesStreamProvider(mockMode: true), (previous, next) {
-      next.whenData((value) => _addImageOverlay(value));
+    ref.listen(yOLOImagesStreamProvider(), (previous, next) {
+      next.whenData((image) {
+        ref.read(yOLOImagesProvider.notifier).addImage(image);
+
+        _addImageOverlay(image);
+      });
     });
 
     return CompositedTransformTarget(
