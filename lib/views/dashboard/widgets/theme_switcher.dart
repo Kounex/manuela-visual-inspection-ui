@@ -16,7 +16,7 @@ class ThemeSwitcher extends ConsumerWidget {
         switch (userTheme) {
           ThemeMode.dark => CupertinoIcons.moon_fill,
           ThemeMode.light => CupertinoIcons.sun_min_fill,
-          ThemeMode.system => CupertinoIcons.lightbulb_slash,
+          ThemeMode.system => CupertinoIcons.circle_lefthalf_fill,
         },
       ),
     );

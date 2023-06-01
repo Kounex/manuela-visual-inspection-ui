@@ -17,6 +17,7 @@ class App extends ConsumerWidget {
       themeMode: userTheme,
       theme: ThemeUtils.lightTheme,
       darkTheme: ThemeUtils.darkTheme,
+      themeAnimationCurve: Curves.easeInSine,
     );
   }
 }

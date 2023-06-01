@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'app.dart';
 import 'types/classes/env.dart';
 
 late Env env;
+late PackageInfo packageInfo;
 
 Future<void> loadENV() async {
   String envString =
@@ -31,6 +33,7 @@ void main() async {
   usePathUrlStrategy();
 
   await loadENV();
+  packageInfo = await PackageInfo.fromPlatform();
 
   runApp(
     const ProviderScope(

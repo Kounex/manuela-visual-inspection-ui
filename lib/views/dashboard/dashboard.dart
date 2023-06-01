@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manuela_visual_inspection_ui/utils/design_system.dart';
 import 'package:manuela_visual_inspection_ui/views/dashboard/widgets/theme_switcher.dart';
 import 'package:manuela_visual_inspection_ui/widgets/base/ui/divider.dart';
 
@@ -11,7 +12,7 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,15 +20,18 @@ class DashboardView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                BaseTitle(text: 'MANUela Visual Inspection'),
-                ThemeSwitcher(),
+                const BaseTitle(text: 'MANUela Visual Inspection'),
+                Padding(
+                  padding: EdgeInsets.only(right: DesignSystem.spacing.x12),
+                  child: const ThemeSwitcher(),
+                ),
               ],
             ),
-            BaseDivider(),
-            ImageShow(),
-            BaseTitle(text: 'Damaged Parts'),
-            BaseDivider(),
-            DamagedYOLOImagesOverview(),
+            const BaseDivider(),
+            const ImageShow(),
+            const BaseTitle(text: 'Damaged Parts'),
+            const BaseDivider(),
+            const DamagedYOLOImagesOverview(),
           ],
         ),
       ),

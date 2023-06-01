@@ -59,6 +59,11 @@ sealed class DesignSystem {
   static const border = _Border();
   static const animation = _Animation();
 
+  static const double opacityForBlur = 0.75;
+
+  /// Taken from [CupertinoNavigationBar]
+  static const double sigmaBlur = 10.0;
+
   static Breakpoint breakpoint(double width) {
     return switch (width) {
       _ when width < Breakpoint.xsm.width => Breakpoint.xsm,

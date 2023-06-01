@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manuela_visual_inspection_ui/services/image_show.dart';
 
 import '../../../types/classes/yolo_image.dart';
 import '../providers/yolo_images.dart';
@@ -49,11 +50,17 @@ class _ImageShowState extends ConsumerState<ImageShow>
                 duration: const Duration(milliseconds: 1000),
               )
               .moveX(
-                duration: const Duration(milliseconds: 10000),
+                duration: Duration(
+                  milliseconds:
+                      ImageShowService.currentAnimationDurationMS(ref),
+                ),
                 end: _link.leaderSize!.width - 500,
               )
               .fadeOut(
-                delay: const Duration(milliseconds: 9000),
+                delay: Duration(
+                    milliseconds:
+                        ImageShowService.currentAnimationDurationMS(ref) -
+                            1000),
                 duration: const Duration(milliseconds: 1000),
               ),
         ),

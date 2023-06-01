@@ -7,7 +7,7 @@ class BaseDivider extends StatelessWidget {
   const BaseDivider({
     Key? key,
     this.height,
-    this.opacity = 0.2,
+    this.opacity = 0.1,
   }) : super(key: key);
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manuela_visual_inspection_ui/router/tab_base.dart';
@@ -33,9 +34,15 @@ class RouterUtils {
 
   static Page _platformTransition(GoRouterState state, Widget child) =>
       switch (true) {
-        _ when Platform.isIOS || Platform.isAndroid =>
-          CupertinoPage(child: child),
-        _ => _noTransition(state, child),
+        _ when !kIsWeb && (Platform.isIOS || Platform.isAndroid) =>
+          CupertinoPage(
+            key: state.pageKey,
+            child: child,
+          ),
+        _ => _noTransition(
+            state,
+            child,
+          ),
       };
 
   static Page _noTransition(GoRouterState state, Widget child) =>
@@ -97,7 +104,8 @@ enum TabMeta {
             routes: [
               GoRoute(
                 path: DashboardRoute.blueprint,
-                pageBuilder: (context, state) => RouterUtils._noTransition(
+                pageBuilder: (context, state) =>
+                    RouterUtils._platformTransition(
                   state,
                   RouterUtils._routeWrapper(
                     text,
@@ -111,7 +119,8 @@ enum TabMeta {
             routes: [
               GoRoute(
                 path: SettingsRoute.blueprint,
-                pageBuilder: (context, state) => RouterUtils._noTransition(
+                pageBuilder: (context, state) =>
+                    RouterUtils._platformTransition(
                   state,
                   RouterUtils._routeWrapper(
                     text,
@@ -125,7 +134,8 @@ enum TabMeta {
             routes: [
               GoRoute(
                 path: AboutRoute.blueprint,
-                pageBuilder: (context, state) => RouterUtils._noTransition(
+                pageBuilder: (context, state) =>
+                    RouterUtils._platformTransition(
                   state,
                   RouterUtils._routeWrapper(
                     text,

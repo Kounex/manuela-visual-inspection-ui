@@ -25,13 +25,15 @@ class BaseCard extends StatefulWidget {
 
   final Widget? trailingTitleWidget;
 
-  final double topPadding;
-  final double rightPadding;
-  final double bottomPadding;
-  final double leftPadding;
+  final double? topPadding;
+  final double? rightPadding;
+  final double? bottomPadding;
+  final double? leftPadding;
 
-  final EdgeInsetsGeometry paddingChild;
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? paddingChild;
+  final EdgeInsetsGeometry? titlePadding;
+
+  final bool isChildDense;
 
   final CrossAxisAlignment titleCrossAlignment;
 
@@ -54,13 +56,13 @@ class BaseCard extends StatefulWidget {
     this.title,
     this.titleWidget,
     this.trailingTitleWidget,
-    this.paddingChild = const EdgeInsets.all(18.0),
-    this.topPadding = 18.0,
-    this.rightPadding = 16.0,
-    this.bottomPadding = 18.0,
-    this.leftPadding = 16.0,
-    this.titlePadding =
-        const EdgeInsets.only(left: 24.0, right: 24.0, top: 12.0, bottom: 12.0),
+    this.paddingChild,
+    this.topPadding,
+    this.rightPadding,
+    this.bottomPadding,
+    this.leftPadding,
+    this.titlePadding,
+    this.isChildDense = false,
     this.titleCrossAlignment = CrossAxisAlignment.center,
     this.elevation = 1.0,
     this.borderRadius,
@@ -87,10 +89,10 @@ class _BaseCardState extends State<BaseCard> {
   Widget build(BuildContext context) {
     Widget card = Padding(
       padding: EdgeInsets.only(
-        top: widget.topPadding,
-        right: widget.rightPadding,
-        bottom: widget.bottomPadding,
-        left: widget.leftPadding,
+        top: widget.topPadding ?? DesignSystem.spacing.x24,
+        right: widget.rightPadding ?? DesignSystem.spacing.x24,
+        bottom: widget.bottomPadding ?? DesignSystem.spacing.x24,
+        left: widget.leftPadding ?? DesignSystem.spacing.x24,
       ),
       child: Card(
         clipBehavior: Clip.hardEdge,
@@ -118,7 +120,11 @@ class _BaseCardState extends State<BaseCard> {
           children: [
             if (widget.titleWidget != null || widget.title != null)
               Padding(
-                padding: widget.titlePadding,
+                padding: widget.titlePadding ??
+                    EdgeInsets.symmetric(
+                      horizontal: DesignSystem.spacing.x24,
+                      vertical: DesignSystem.spacing.x12,
+                    ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +171,10 @@ class _BaseCardState extends State<BaseCard> {
                   if (widget.titleWidget != null || widget.title != null)
                     const BaseDivider(),
                   Padding(
-                    padding: widget.paddingChild,
+                    padding: widget.paddingChild ??
+                        EdgeInsets.all(widget.isChildDense
+                            ? DesignSystem.spacing.x12
+                            : DesignSystem.spacing.x24),
                     child: widget.child,
                   ),
                 ],

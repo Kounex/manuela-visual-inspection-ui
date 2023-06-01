@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_theme.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UserTheme extends _$UserTheme {
   @override
   ThemeMode build() => ThemeMode.system;
