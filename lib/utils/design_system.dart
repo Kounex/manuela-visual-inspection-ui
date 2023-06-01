@@ -22,6 +22,12 @@ class _Border {
   double get width3 => 3;
 }
 
+class _Animation {
+  const _Animation();
+
+  Duration get defaultDurationMS250 => const Duration(milliseconds: 250);
+}
+
 enum Breakpoint {
   xsm,
   sm,
@@ -29,6 +35,17 @@ enum Breakpoint {
   lg,
   xl,
   xxl;
+
+  double get width {
+    return switch (this) {
+      Breakpoint.xsm => 567,
+      Breakpoint.sm => 768,
+      Breakpoint.md => 992,
+      Breakpoint.lg => 1200,
+      Breakpoint.xl => 1400,
+      Breakpoint.xxl => double.infinity,
+    };
+  }
 
   bool operator >(Breakpoint other) => index > other.index;
   bool operator >=(Breakpoint other) => index >= other.index;
@@ -40,14 +57,15 @@ enum Breakpoint {
 sealed class DesignSystem {
   static const spacing = _Spacing();
   static const border = _Border();
+  static const animation = _Animation();
 
   static Breakpoint breakpoint(double width) {
     return switch (width) {
-      _ when width < 576 => Breakpoint.xsm,
-      _ when width < 768 => Breakpoint.sm,
-      _ when width < 992 => Breakpoint.md,
-      _ when width < 1200 => Breakpoint.lg,
-      _ when width < 1400 => Breakpoint.xl,
+      _ when width < Breakpoint.xsm.width => Breakpoint.xsm,
+      _ when width < Breakpoint.sm.width => Breakpoint.sm,
+      _ when width < Breakpoint.md.width => Breakpoint.md,
+      _ when width < Breakpoint.lg.width => Breakpoint.lg,
+      _ when width < Breakpoint.xl.width => Breakpoint.xl,
       _ => Breakpoint.xxl
     };
   }

@@ -6,7 +6,7 @@ part of 'yolo_images.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$yOLOImagesStreamHash() => r'26451c04d41d39875a8e10569ce480d6a5389f78';
+String _$yOLOImagesStreamHash() => r'71ef972ad2f044f81d9be4f712a7926da0234309';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -125,12 +125,12 @@ final damagedYOLOImagesProvider = AutoDisposeProvider<List<YOLOImage>>.internal(
 );
 
 typedef DamagedYOLOImagesRef = AutoDisposeProviderRef<List<YOLOImage>>;
-String _$yOLOImagesHash() => r'6bc6833c10e463c2368d835c53d909381ae8efbc';
+String _$yOLOImagesHash() => r'25f7b0cdc782785d4ab13cb00029681a92530692';
 
 /// See also [YOLOImages].
 @ProviderFor(YOLOImages)
 final yOLOImagesProvider =
-    AutoDisposeNotifierProvider<YOLOImages, List<YOLOImage>>.internal(
+    NotifierProvider<YOLOImages, List<YOLOImage>>.internal(
   YOLOImages.new,
   name: r'yOLOImagesProvider',
   debugGetCreateSourceHash:
@@ -139,5 +139,5 @@ final yOLOImagesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$YOLOImages = AutoDisposeNotifier<List<YOLOImage>>;
+typedef _$YOLOImages = Notifier<List<YOLOImage>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manuela_visual_inspection_ui/router/router.dart';
 import 'package:manuela_visual_inspection_ui/utils/design_system.dart';
+import 'package:manuela_visual_inspection_ui/widgets/base/ui/divider.dart';
 
 class TabBase extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -56,7 +57,7 @@ class TabBase extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Divider(height: 1.0),
+                const BaseDivider(),
                 NavigationBar(
                   selectedIndex: navigationShell.currentIndex,
                   destinations: TabMeta.values

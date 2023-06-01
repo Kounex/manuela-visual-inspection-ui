@@ -8,6 +8,10 @@ sealed class ThemeUtils {
       tertiary: Color(0xffee0000),
       background: Color.fromARGB(255, 250, 250, 250),
     ),
+  ).copyWith(
+    splashColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    highlightColor: Colors.transparent,
   );
 
   static ThemeData darkTheme = ThemeData.from(
@@ -17,5 +21,9 @@ sealed class ThemeUtils {
       tertiary: Color(0xffee0000),
       background: Color(0xff2e2e2e),
     ),
+  ).copyWith(
+    splashColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    highlightColor: Colors.transparent,
   );
 }

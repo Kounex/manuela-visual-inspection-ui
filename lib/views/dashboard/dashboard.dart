@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manuela_visual_inspection_ui/views/dashboard/widgets/theme_switcher.dart';
+import 'package:manuela_visual_inspection_ui/widgets/base/ui/divider.dart';
 
 import '../../widgets/base/ui/title.dart';
 import 'widgets/damaged_yolo_images_overview.dart';
@@ -22,10 +23,10 @@ class DashboardView extends StatelessWidget {
                 ThemeSwitcher(),
               ],
             ),
-            Divider(height: 1.0),
+            BaseDivider(),
             ImageShow(),
             BaseTitle(text: 'Damaged Parts'),
-            Divider(height: 1.0),
+            BaseDivider(),
             DamagedYOLOImagesOverview(),
           ],
         ),

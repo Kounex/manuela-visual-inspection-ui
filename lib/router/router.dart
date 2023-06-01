@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:manuela_visual_inspection_ui/router/tab_base.dart';
 import 'package:manuela_visual_inspection_ui/views/about/about.dart';
 import 'package:manuela_visual_inspection_ui/views/dashboard/dashboard.dart';
+import 'package:manuela_visual_inspection_ui/views/settings/settings.dart';
 
 class RouterUtils {
   static final router = GoRouter(
@@ -62,6 +63,12 @@ class DashboardRoute extends TabRoute {
   DashboardRoute() : super('/dashboard');
 }
 
+class SettingsRoute extends TabRoute {
+  static String blueprint = '/settings';
+
+  SettingsRoute() : super('/settings');
+}
+
 class AboutRoute extends TabRoute {
   static String blueprint = '/about';
 
@@ -70,15 +77,18 @@ class AboutRoute extends TabRoute {
 
 enum TabMeta {
   dashboard,
+  settings,
   about;
 
   String get text => switch (this) {
         TabMeta.dashboard => 'Dashboard',
+        TabMeta.settings => 'Settings',
         TabMeta.about => 'About',
       };
 
   IconData get icon => switch (this) {
         TabMeta.dashboard => CupertinoIcons.home,
+        TabMeta.settings => CupertinoIcons.settings,
         TabMeta.about => CupertinoIcons.info_circle_fill,
       };
 
@@ -92,6 +102,20 @@ enum TabMeta {
                   RouterUtils._routeWrapper(
                     text,
                     const DashboardView(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        TabMeta.settings => StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: SettingsRoute.blueprint,
+                pageBuilder: (context, state) => RouterUtils._noTransition(
+                  state,
+                  RouterUtils._routeWrapper(
+                    text,
+                    const SettingsView(),
                   ),
                 ),
               ),
