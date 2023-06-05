@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,6 +20,15 @@ class YOLOStreamSettings {
     this.milliseconds = 5000,
     this.errorProbability = 0.3,
   });
+}
+
+Future<void> _setImageDimension(YOLOImage image) async {
+  ui.Codec codec = await ui
+      .instantiateImageCodec(base64Decode(image.base64.split(',').last));
+  final ui.FrameInfo frameInfo = await codec.getNextFrame();
+
+  image.height = frameInfo.image.height.toDouble();
+  image.width = frameInfo.image.width.toDouble();
 }
 
 Stream<YOLOImage> _mockImages(
@@ -45,6 +56,8 @@ Stream<YOLOImage> _mockImages(
       }
     }
 
+    await _setImageDimension(image);
+
     yield image;
   }
 }
@@ -58,7 +71,13 @@ Stream<YOLOImage> yOLOImagesStream(YOLOImagesStreamRef ref, {bool? mockMode}) {
     Socket socket = io(env.apiURL ?? '');
 
     socket.onConnectError((error) => controller.addError(error));
-    socket.on('server2ui2', (data) => controller.add(YOLOImage.fromJSON(data)));
+    socket.on('server2ui2', (data) async {
+      YOLOImage image = YOLOImage.fromJSON(data);
+
+      await _setImageDimension(image);
+
+      controller.add(image);
+    });
     socket.onDisconnect((_) => controller.addError(_));
     socket.onError((error) => controller.addError(error));
 

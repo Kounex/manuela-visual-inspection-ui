@@ -54,13 +54,16 @@ class _ImageShowState extends ConsumerState<ImageShow>
                   milliseconds:
                       ImageShowService.currentAnimationDurationMS(ref),
                 ),
-                end: _link.leaderSize!.width - 500,
+                end: _link.leaderSize!.width -
+                    (image.width != null
+                        ? (image.width! * imageHeight / image.height!)
+                        : 500),
               )
               .fadeOut(
                 delay: Duration(
-                    milliseconds:
-                        ImageShowService.currentAnimationDurationMS(ref) -
-                            1000),
+                  milliseconds:
+                      ImageShowService.currentAnimationDurationMS(ref) - 1000,
+                ),
                 duration: const Duration(milliseconds: 1000),
               ),
         ),

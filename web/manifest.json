@@ -1,11 +1,11 @@
 {
-    "name": "manuela_visual_inspection_ui",
-    "short_name": "manuela_visual_inspection_ui",
+    "name": "MANUela Visual Inspection",
+    "short_name": "MVI",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0000000",
     "theme_color": "#EE0000",
-    "description": "UI for the MANUela Visual Inspection demo",
+    "description": "Dashboard for the end-to-end showcase of the Red Hat Data Science capabilities. Part of the MANUela Visual Inspection project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

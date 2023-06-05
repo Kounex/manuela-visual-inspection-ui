@@ -4,7 +4,17 @@ class YOLOImage {
   final String text;
   final DateTime timestamp;
 
-  const YOLOImage(this.base64, this.status, this.text, this.timestamp);
+  double? height;
+  double? width;
+
+  YOLOImage(
+    this.base64,
+    this.status,
+    this.text,
+    this.timestamp, {
+    this.height,
+    this.width,
+  });
 
   factory YOLOImage.fromJSON(Map<String, dynamic> json) => YOLOImage(
         json['image'],
