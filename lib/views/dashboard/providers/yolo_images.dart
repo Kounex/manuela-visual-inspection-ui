@@ -64,7 +64,7 @@ Stream<YOLOImage> _mockImages(
 
 @riverpod
 Stream<YOLOImage> yOLOImagesStream(YOLOImagesStreamRef ref, {bool? mockMode}) {
-  mockMode = env.mockMode ?? mockMode ?? false;
+  mockMode = env.mockMode ?? mockMode ?? Uri.base.host.contains('localhost');
   if (!mockMode) {
     StreamController<YOLOImage> controller = StreamController();
 
