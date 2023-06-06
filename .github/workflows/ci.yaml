@@ -25,7 +25,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Set release version
         run: |
-          VER=$(cat ./pubspec.yaml | grep "version:" | cut -f 2 -d ":" | xargs)
+          VER=$(cat pubspec.yaml | grep -o "version:[^:]*" | cut -f 2 -d ":" | cut -f 1 -d "+" | xargs)
           echo "APP_VERSION=$VER" >> $GITHUB_ENV
       - name: Docker meta
         id: meta
