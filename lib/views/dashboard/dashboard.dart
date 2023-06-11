@@ -5,7 +5,7 @@ import 'package:manuela_visual_inspection_ui/widgets/base/ui/divider.dart';
 
 import '../../widgets/base/ui/title.dart';
 import 'widgets/damaged_yolo_images_overview.dart';
-import 'widgets/image_show.dart';
+import 'widgets/image_show/image_show.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
