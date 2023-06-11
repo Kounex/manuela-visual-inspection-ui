@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:manuela_visual_inspection_ui/services/image_show.dart';
+import 'dart:math';
 
-import '../../../types/classes/yolo_image.dart';
-import '../providers/yolo_images.dart';
-import 'decorated_yolo_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manuela_visual_inspection_ui/views/dashboard/widgets/image_show/yolo_animated_overlay.dart';
+
+import '../../../../types/classes/yolo_image.dart';
+import '../../providers/yolo_images.dart';
 
 class ImageShow extends ConsumerStatefulWidget {
   const ImageShow({super.key});
@@ -25,48 +25,15 @@ class _ImageShowState extends ConsumerState<ImageShow>
   bool get wantKeepAlive => true;
 
   void _addImageOverlay(YOLOImage image) {
-    double imageHeight = _link.leaderSize!.height * 2 / 3;
-
     late OverlayEntry entry;
     entry = OverlayEntry(
-      builder: (context) => Positioned(
-        height: imageHeight,
-        child: CompositedTransformFollower(
-          link: _link,
-          offset: Offset(
-            0,
-            (_link.leaderSize!.height - imageHeight) / 2,
-          ),
-          child: DecoratedYOLOImage(
-            image: image,
-          )
-              .animate(
-                onComplete: (controller) {
-                  entry.remove();
-                  _currentEntries.remove(entry);
-                },
-              )
-              .fadeIn(
-                duration: const Duration(milliseconds: 1000),
-              )
-              .moveX(
-                duration: Duration(
-                  milliseconds:
-                      ImageShowService.currentAnimationDurationMS(ref),
-                ),
-                end: _link.leaderSize!.width -
-                    (image.width != null
-                        ? (image.width! * imageHeight / image.height!)
-                        : 500),
-              )
-              .fadeOut(
-                delay: Duration(
-                  milliseconds:
-                      ImageShowService.currentAnimationDurationMS(ref) - 1000,
-                ),
-                duration: const Duration(milliseconds: 1000),
-              ),
-        ),
+      builder: (context) => YOLOAnimatedOverlay(
+        link: _link,
+        image: image,
+        onComplete: (_) {
+          entry.remove();
+          _currentEntries.remove(entry);
+        },
       ),
     );
     Overlay.of(context).insert(entry);
@@ -110,7 +77,7 @@ class _ImageShowState extends ConsumerState<ImageShow>
           child: Container(
             key: _imageBoxKey,
             alignment: Alignment.center,
-            height: 500,
+            height: min(500, MediaQuery.of(context).size.height / 3),
             width: double.infinity,
             color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
             child: yoloImage.when(

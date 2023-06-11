@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class _Spacing {
   const _Spacing();
 
@@ -64,13 +66,15 @@ sealed class DesignSystem {
   /// Taken from [CupertinoNavigationBar]
   static const double sigmaBlur = 10.0;
 
-  static Breakpoint breakpoint(double width) {
-    return switch (width) {
-      _ when width < Breakpoint.xsm.width => Breakpoint.xsm,
-      _ when width < Breakpoint.sm.width => Breakpoint.sm,
-      _ when width < Breakpoint.md.width => Breakpoint.md,
-      _ when width < Breakpoint.lg.width => Breakpoint.lg,
-      _ when width < Breakpoint.xl.width => Breakpoint.xl,
+  static Breakpoint breakpoint({double? width, BuildContext? context}) {
+    assert(width != null || context != null);
+    final double size = width ?? MediaQuery.of(context!).size.width;
+    return switch (true) {
+      _ when size < Breakpoint.xsm.width => Breakpoint.xsm,
+      _ when size < Breakpoint.sm.width => Breakpoint.sm,
+      _ when size < Breakpoint.md.width => Breakpoint.md,
+      _ when size < Breakpoint.lg.width => Breakpoint.lg,
+      _ when size < Breakpoint.xl.width => Breakpoint.xl,
       _ => Breakpoint.xxl
     };
   }

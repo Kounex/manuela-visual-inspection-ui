@@ -24,8 +24,7 @@ class TabBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final breakpoint =
-        DesignSystem.breakpoint(MediaQuery.of(context).size.width);
+    final breakpoint = DesignSystem.breakpoint(context: context);
 
     return Scaffold(
       body: Row(
