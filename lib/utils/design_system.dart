@@ -23,6 +23,7 @@ class _Border {
   double get width05 => 0.5;
   double get width3 => 3;
   double get width8 => 8;
+  double get width12 => 12;
 }
 
 class _Animation {

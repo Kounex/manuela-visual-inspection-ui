@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manuela_visual_inspection_ui/utils/design_system.dart';
 
@@ -59,7 +58,7 @@ class DecoratedYOLOImage extends StatelessWidget {
       color: borderColor ??
           (image.status
               ? Theme.of(context).colorScheme.errorContainer
-              : CupertinoColors.systemGreen),
+              : Colors.green[700]!),
       width: borderWidth ?? DesignSystem.border.width05,
     );
 
