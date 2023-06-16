@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manuela_visual_inspection_ui/utils/design_system.dart';
 
@@ -15,6 +16,13 @@ class DecoratedYOLOImage extends StatelessWidget {
   final double? borderWidth;
   final Color? borderColor;
 
+  final bool highlight;
+
+  final bool topLeftBorderRadius;
+  final bool topRightBorderRadius;
+  final bool bottomLeftBorderRadius;
+  final bool bottomRightBorderRadius;
+
   const DecoratedYOLOImage({
     super.key,
     required this.image,
@@ -23,27 +31,54 @@ class DecoratedYOLOImage extends StatelessWidget {
     this.borderRadius,
     this.borderWidth,
     this.borderColor,
+    this.highlight = false,
+    this.topLeftBorderRadius = true,
+    this.topRightBorderRadius = true,
+    this.bottomLeftBorderRadius = true,
+    this.bottomRightBorderRadius = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final radius = BorderRadius.only(
+      topLeft: topLeftBorderRadius
+          ? Radius.circular(borderRadius ?? DesignSystem.border.radius12)
+          : Radius.zero,
+      topRight: topRightBorderRadius
+          ? Radius.circular(borderRadius ?? DesignSystem.border.radius12)
+          : Radius.zero,
+      bottomLeft: bottomLeftBorderRadius
+          ? Radius.circular(borderRadius ?? DesignSystem.border.radius12)
+          : Radius.zero,
+      bottomRight: bottomRightBorderRadius
+          ? Radius.circular(borderRadius ?? DesignSystem.border.radius12)
+          : Radius.zero,
+    );
+
+    final side = BorderSide(
+      color: borderColor ??
+          (image.status
+              ? Theme.of(context).colorScheme.errorContainer
+              : CupertinoColors.systemGreen),
+      width: borderWidth ?? DesignSystem.border.width05,
+    );
+
     return Container(
       foregroundDecoration: BoxDecoration(
-        border: Border.all(
-          color: borderColor ??
-              (image.status
-                  ? Theme.of(context).colorScheme.errorContainer
-                  : Colors.green),
-          width: borderWidth ?? DesignSystem.border.width3,
+        border: Border(
+          right: side.copyWith(
+            width: highlight
+                ? DesignSystem.border.width8
+                : borderWidth ?? DesignSystem.border.width05,
+          ),
+          top: side,
+          left: side,
+          bottom: side,
         ),
-        borderRadius: BorderRadius.circular(
-          borderRadius ?? DesignSystem.border.radius12,
-        ),
+        borderRadius: radius,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          borderRadius ?? DesignSystem.border.radius12,
-        ),
+        borderRadius: radius,
         child: Image.memory(
           base64Decode(
             image.base64.startsWith('data:')

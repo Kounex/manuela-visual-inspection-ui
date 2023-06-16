@@ -36,6 +36,7 @@ class YOLOAnimatedOverlay extends ConsumerWidget {
         ),
         child: DecoratedYOLOImage(
           image: image,
+          highlight: true,
         )
             .animate(
               onComplete: onComplete,

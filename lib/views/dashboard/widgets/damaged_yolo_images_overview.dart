@@ -39,6 +39,8 @@ class DamagedYOLOImagesOverview extends ConsumerWidget {
                       DecoratedYOLOImage(
                         image: damagedImage,
                         height: 128.0,
+                        topRightBorderRadius: false,
+                        bottomRightBorderRadius: false,
                       ),
                       Container(
                         width: 192.0,
