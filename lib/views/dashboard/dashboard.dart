@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manuela_visual_inspection_ui/main.dart';
 import 'package:manuela_visual_inspection_ui/utils/design_system.dart';
 import 'package:manuela_visual_inspection_ui/views/dashboard/widgets/theme_switcher.dart';
 import 'package:manuela_visual_inspection_ui/widgets/base/ui/divider.dart';
@@ -20,7 +21,7 @@ class DashboardView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const BaseTitle(text: 'MANUela Visual Inspection'),
+                BaseTitle(text: env.brandName ?? 'Visual Inspection'),
                 Padding(
                   padding: EdgeInsets.only(right: DesignSystem.spacing.x12),
                   child: const ThemeSwitcher(),

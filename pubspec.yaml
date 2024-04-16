@@ -3,7 +3,7 @@ description: Dashboard for the end-to-end showcase of the Red Hat Data Science c
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.1+2023061601
+version: 1.2.0+2024041601
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
