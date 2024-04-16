@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
+import 'package:manuela_visual_inspection_ui/providers/mock_mode.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -64,8 +65,8 @@ Stream<YOLOImage> _mockImages(
 
 @riverpod
 Stream<YOLOImage> yOLOImagesStream(YOLOImagesStreamRef ref, {bool? mockMode}) {
-  mockMode = env.mockMode ?? mockMode ?? Uri.base.host.contains('localhost');
-  if (!mockMode) {
+  mockMode = mockMode ?? ref.watch(mockModeProvider);
+  if (!mockMode!) {
     StreamController<YOLOImage> controller = StreamController();
 
     Socket socket = io(env.apiURL ?? '');

@@ -24,7 +24,7 @@ class RouterUtils {
 
   static Widget _routeWrapper(String title, Widget child) => Title(
         color: Colors.black,
-        title: 'MVI | $title',
+        title: 'VI | $title',
         child: child,
       );
 

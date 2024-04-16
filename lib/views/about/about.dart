@@ -42,7 +42,7 @@ class AboutView extends StatelessWidget {
                     ],
                   ),
                   const Text(
-                      'This is part of a bigger project aiming to showcase the end-to-end capabilities of Red Hat OpenShift Data Science. The project can be found here:'),
+                      'This is part of a bigger project aiming to showcase the end-to-end capabilities of Red Hat OpenShift AI. The project can be found here:'),
                   SocialBlock(
                     socialInfos: [
                       SocialEntry(

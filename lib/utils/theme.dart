@@ -6,12 +6,21 @@ sealed class ThemeUtils {
       primary: Color(0xffee0000),
       secondary: Color(0xffee0000),
       tertiary: Color(0xffee0000),
-      background: Color.fromARGB(255, 250, 250, 250),
+      background: Color(0xffefefef),
     ),
   ).copyWith(
     splashColor: Colors.transparent,
     hoverColor: Colors.transparent,
     highlightColor: Colors.transparent,
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.hovered) &&
+            states.contains(MaterialState.selected)) {
+          return Colors.white;
+        }
+        return null;
+      }),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData.from(
@@ -25,5 +34,14 @@ sealed class ThemeUtils {
     splashColor: Colors.transparent,
     hoverColor: Colors.transparent,
     highlightColor: Colors.transparent,
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.hovered) &&
+            states.contains(MaterialState.selected)) {
+          return Colors.black;
+        }
+        return null;
+      }),
+    ),
   );
 }

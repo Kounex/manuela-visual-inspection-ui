@@ -64,7 +64,7 @@ class BaseCard extends StatefulWidget {
     this.titlePadding,
     this.isChildDense = false,
     this.titleCrossAlignment = CrossAxisAlignment.center,
-    this.elevation = 1.0,
+    this.elevation = 0.0,
     this.borderRadius,
   }) : super(key: key);
 

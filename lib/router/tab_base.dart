@@ -44,7 +44,7 @@ class TabBase extends StatelessWidget {
                   .toList(),
               onDestinationSelected: (index) => _onTap(context, index),
             ),
-            const VerticalDivider(width: 1.0),
+            const VerticalDivider(width: 0),
           ],
           Expanded(
             child: navigationShell,

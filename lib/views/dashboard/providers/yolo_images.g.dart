@@ -6,7 +6,7 @@ part of 'yolo_images.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$yOLOImagesStreamHash() => r'71ef972ad2f044f81d9be4f712a7926da0234309';
+String _$yOLOImagesStreamHash() => r'd1f03ca1bee4f5380abe164b173380db9b86b58c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -28,8 +28,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-typedef YOLOImagesStreamRef = AutoDisposeStreamProviderRef<YOLOImage>;
 
 /// See also [yOLOImagesStream].
 @ProviderFor(yOLOImagesStream)
@@ -77,10 +75,10 @@ class YOLOImagesStreamFamily extends Family<AsyncValue<YOLOImage>> {
 class YOLOImagesStreamProvider extends AutoDisposeStreamProvider<YOLOImage> {
   /// See also [yOLOImagesStream].
   YOLOImagesStreamProvider({
-    this.mockMode,
-  }) : super.internal(
+    bool? mockMode,
+  }) : this._internal(
           (ref) => yOLOImagesStream(
-            ref,
+            ref as YOLOImagesStreamRef,
             mockMode: mockMode,
           ),
           from: yOLOImagesStreamProvider,
@@ -92,9 +90,43 @@ class YOLOImagesStreamProvider extends AutoDisposeStreamProvider<YOLOImage> {
           dependencies: YOLOImagesStreamFamily._dependencies,
           allTransitiveDependencies:
               YOLOImagesStreamFamily._allTransitiveDependencies,
+          mockMode: mockMode,
         );
 
+  YOLOImagesStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.mockMode,
+  }) : super.internal();
+
   final bool? mockMode;
+
+  @override
+  Override overrideWith(
+    Stream<YOLOImage> Function(YOLOImagesStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: YOLOImagesStreamProvider._internal(
+        (ref) => create(ref as YOLOImagesStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        mockMode: mockMode,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<YOLOImage> createElement() {
+    return _YOLOImagesStreamProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -108,6 +140,20 @@ class YOLOImagesStreamProvider extends AutoDisposeStreamProvider<YOLOImage> {
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin YOLOImagesStreamRef on AutoDisposeStreamProviderRef<YOLOImage> {
+  /// The parameter `mockMode` of this provider.
+  bool? get mockMode;
+}
+
+class _YOLOImagesStreamProviderElement
+    extends AutoDisposeStreamProviderElement<YOLOImage>
+    with YOLOImagesStreamRef {
+  _YOLOImagesStreamProviderElement(super.provider);
+
+  @override
+  bool? get mockMode => (origin as YOLOImagesStreamProvider).mockMode;
 }
 
 String _$damagedYOLOImagesHash() => r'1498b638d40288a424f514226ad48ba36f7df5db';
@@ -140,4 +186,5 @@ final yOLOImagesProvider =
 );
 
 typedef _$YOLOImages = Notifier<List<YOLOImage>>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
