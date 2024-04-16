@@ -4,8 +4,8 @@ metadata:
   name: manuela-visual-inspection-ui-config
   namespace: manuela-visual-inspection-ui
   labels:
-    app.kubernetes.io/instance: manuela-visual-inspection-ui
-    app.kubernetes.io/name: manuela-visual-inspection-ui
+    app: manuela-visual-inspection-ui
+    app.kubernetes.io/part-of: manuela-visual-inspection
 data:
   config: >
     API_URL=http://dashboard-manuela-visual-inspection.apps.ocp5.stormshift.coe.muc.redhat.com/ui2

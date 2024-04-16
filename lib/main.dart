@@ -21,6 +21,7 @@ Future<void> loadENV() async {
   }
 
   env = Env(
+    brandName: envMap['BRAND_NAME'],
     apiURL: envMap['API_URL'],
     mockMode: bool.tryParse(envMap['MOCK_MODE'] ?? ''),
     imageShowAnimationMS: int.tryParse(envMap['IMAGE_SHOW_ANIMATION_MS'] ?? ''),

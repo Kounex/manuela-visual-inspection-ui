@@ -4,15 +4,27 @@ metadata:
   name: manuela-visual-inspection-ui
   namespace: manuela-visual-inspection-ui
   labels:
-    app.kubernetes.io/instance: manuela-visual-inspection-ui
-    app.kubernetes.io/name: manuela-visual-inspection-ui
+    app: manuela-visual-inspection-ui
+    app.kubernetes.io/part-of: manuela-visual-inspection
 spec:
+  ipFamilies:
+    - IPv4
   ports:
-    - name: http
-      port: 8080
+    - name: web
       protocol: TCP
-      targetPort: http
+      port: 8088
+      targetPort: 8088
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8443
+  internalTrafficPolicy: Cluster
   type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
   selector:
-    app.kubernetes.io/instance: manuela-visual-inspection-ui
-    app.kubernetes.io/name: manuela-visual-inspection-ui
+    app: manuela-visual-inspection-ui
